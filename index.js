@@ -3,7 +3,8 @@ const app = express();
 const animalRoutes = require('./routes/animals');
 const animalsSecRoutes = require('./routes/animals_sec');
 const cors = require('cors');
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT;
+
 
 app.use(express.json());
  // Enable CORS for all origins
