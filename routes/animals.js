@@ -73,7 +73,10 @@ router.get('/sec-names', async (req, res) => {
       FROM dumanimal 
       WHERE sec_name IS NOT NULL
     `);
-    const names = result.rows.map(row => row.sec_name?.trim()).filter(Boolean);
+    const names = result.rows
+  .map(row => row.sec_name ? row.sec_name.trim() : null)
+  .filter(Boolean);
+
     res.json(names);
   } catch (err) {
     console.error('❌ Error fetching section names:', err.message);
