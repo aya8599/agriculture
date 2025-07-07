@@ -1,11 +1,19 @@
-// تحميل المتغيرات من .env
 require('dotenv').config();
 
 const express = require('express');
+const cors = require('cors'); // ✅ لازم لإتاحة الوصول للـ API
 const { Pool } = require('pg');
 const app = express();
 
-// التأكد من وجود المتغيرات الأساسية
+// ✅ استخدام CORS
+app.use(cors());
+app.use(express.json()); // عشان تقبل JSON في الطلبات
+
+// ✅ تحميل الراوتر
+const animalRoutes = require('./routes/animals');
+app.use('/api/dumanimal', animalRoutes); // ربط المسارات
+
+// ✅ التأكد من متغيرات البيئة
 const requiredEnvVars = ['PGUSER', 'PGHOST', 'PGDATABASE', 'PGPASSWORD', 'PGPORT'];
 requiredEnvVars.forEach((varName) => {
   if (!process.env[varName]) {
@@ -14,7 +22,7 @@ requiredEnvVars.forEach((varName) => {
   }
 });
 
-// إعداد الاتصال بقاعدة البيانات
+// ✅ إعداد الاتصال بقاعدة البيانات
 const pool = new Pool({
   user: process.env.PGUSER,
   host: process.env.PGHOST,
@@ -26,7 +34,7 @@ const pool = new Pool({
   },
 });
 
-// اختبار الاتصال بقاعدة البيانات
+// ✅ اختبار الاتصال بقاعدة البيانات
 pool.connect()
   .then(client => {
     console.log('✅ Connected to PostgreSQL database!');
@@ -45,12 +53,12 @@ pool.connect()
     console.error('❌ Failed to connect to PostgreSQL database:', err.message);
   });
 
-// إعداد الراوت الافتراضي
+// ✅ صفحة الترحيب
 app.get('/', (req, res) => {
   res.send('🌿 Animal Dashboard Backend is running!');
 });
 
-// تشغيل السيرفر مع معالجة حالة "المنفذ مستخدم"
+// ✅ تشغيل السيرفر
 const DEFAULT_PORT = 3000;
 const PORT = Number(process.env.PORT) || DEFAULT_PORT;
 
@@ -70,3 +78,6 @@ const startServer = (portToUse) => {
 };
 
 startServer(PORT);
+
+// ✅ علشان نقدر نستخدم pool في أي ملف تاني
+module.exports = pool;
