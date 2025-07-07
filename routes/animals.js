@@ -275,5 +275,9 @@ router.get('/dot-density-categorized', async (req, res) => {
   }
 });
 
+router.get('/test', (req, res) => {
+  res.json({ message: '✅ API works fine!' });
+});
+
 
 module.exports = router;
