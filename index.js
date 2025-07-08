@@ -11,7 +11,9 @@ app.use(express.json()); // عشان تقبل JSON في الطلبات
 
 // ✅ تحميل الراوتر
 const animalRoutes = require('./routes/animals');
-app.use('/api/dumanimal', animalRoutes); // ربط المسارات
+const animalsSecRoutes = require('./routes/animals_sec');; // ✅ أضف هذا السطر
+app.use('/api/dumanimal', animalRoutes);// ربط المسارات
+app.use('/api/animals_sec', animalsSecRoutes);
 
 // ✅ التأكد من متغيرات البيئة
 const requiredEnvVars = ['PGUSER', 'PGHOST', 'PGDATABASE', 'PGPASSWORD', 'PGPORT'];
