@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-  "start": "node index.js",
-  "vercel-build": "echo 'Vercel build script: nothing to build for backend only'",
-  "test": "echo \"Error: no test specified\" && exit 1"
-},
+    "start": "node index.js",
+    "vercel-build": "echo 'Vercel build script: nothing to build for backend only'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -18,9 +18,7 @@
     "pg": "^8.16.3",
     "postgres": "^3.4.7"
   },
-  },
   "engines": {
     "node": "18.x"
   }
 }
-
